@@ -9,13 +9,13 @@ import { ReportsListComponent } from './features/reports/reports-list/reports-li
 import { LoginComponent } from './features/login/login.component';
 import { HomeComponent } from './features/home/home.component';
 const routes: Routes = [
-  // { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'employees', component: EmployeesListComponent, canActivate: [AuthGuard] },
   { path: 'employees/:id', component: EmployeeDetailComponent, canActivate: [AuthGuard] },
   { path: 'courses', component: CoursesListComponent, canActivate: [AuthGuard] },
   { path: 'courses/:id', component: CourseDetailComponent, canActivate: [AuthGuard] },
   { path: 'reports', component: ReportsListComponent, canActivate: [AuthGuard] },
-  { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
 
 ];

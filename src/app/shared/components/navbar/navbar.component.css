@@ -1,35 +1,53 @@
 nav {
-  background: linear-gradient(90deg, #007acc, #005b99);
-  padding: 16px 40px;
+  direction: rtl;
+  background: #4d95f2;
+  padding: 18px 40px;
   display: flex;
   gap: 32px;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-bottom: 4px solid #004c80;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid #dcdfe3;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 nav a {
-  color: #f0f8ff;
+  color: #2c3e50;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.1rem;
   position: relative;
-  padding: 6px 0;
+  padding: 8px 4px;
   transition: color 0.3s ease;
 }
 
-nav a:hover {
-  color: #000000;
-}
-
-nav a.active::after {
+nav a::after {
   content: "";
   position: absolute;
   bottom: -4px;
   left: 0;
-  height: 3px;
-  width: 100%;
-  background-color: #ffe680;
-  border-radius: 2px;
+  width: 0%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: width 0.3s ease;
 }
+
+nav a:hover {
+  color: #ffffff;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* nav a.active {
+  color: #ff5100;
+  font-weight: 700;
+}
+
+nav a.active::after {
+  width: 100%;
+  background-color: #ff8c00;
+} */
