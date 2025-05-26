@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from 'src/app/core/services/employee.service';
 import { Employee } from 'src/app/core/models/employee.model';
 
@@ -9,21 +9,42 @@ import { Employee } from 'src/app/core/models/employee.model';
   styleUrls: ['./employee-detail.css']
 })
 export class EmployeeDetailComponent implements OnInit {
-  employee: Employee | null = null;
-  employeeId!: number;
+  employee: Employee = this.createEmptyEmployee();
+  isNewEmployee: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
-    this.getEmployeeDetails();
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      // עדכון עובד קיים
+      this.isNewEmployee = false;
+      this.getEmployeeDetails(id);
+    } else {
+      // יצירת עובד חדש
+      this.isNewEmployee = true;
+      // כבר הגדרנו employee כעובד ריק (למלא טופס חדש)
+    }
   }
 
-  getEmployeeDetails(): void {
-    this.employeeService.getEmployeeById(this.employeeId).subscribe(
+  createEmptyEmployee(): Employee {
+    return {
+      id: '',
+      code: '',
+      fullName: '',
+      email: '',
+      passwordHash: '',
+      phone: '',
+      isAdmin: false
+    };
+  }
+
+  getEmployeeDetails(id: string): void {
+    this.employeeService.getEmployeeById(id).subscribe(
       (data: Employee) => {
         this.employee = data;
       },
@@ -33,14 +54,38 @@ export class EmployeeDetailComponent implements OnInit {
     );
   }
 
-  updateEmployee(): void {
-    if (this.employee) {
+  onSubmit(): void {
+    if (this.isNewEmployee) {
+      this.employeeService.addEmployee(this.employee).subscribe(
+        () => {
+          alert('העובד נוסף בהצלחה');
+          this.router.navigate(['/employees']);
+        },
+        (error) => {
+          console.error('Error adding employee', error);
+        }
+      );
+    } else {
       this.employeeService.updateEmployee(this.employee).subscribe(
         () => {
           alert('העובד עודכן בהצלחה');
         },
         (error) => {
           console.error('Error updating employee', error);
+        }
+      );
+    }
+  }
+
+  deleteEmployee(): void {
+    if (!this.isNewEmployee && confirm('האם את בטוחה שברצונך למחוק את העובד?')) {
+      this.employeeService.deleteEmployee(this.employee.id.toString()).subscribe(
+        () => {
+          alert('העובד נמחק בהצלחה');
+          this.router.navigate(['/employees']);
+        },
+        (error) => {
+          console.error('Error deleting employee', error);
         }
       );
     }
