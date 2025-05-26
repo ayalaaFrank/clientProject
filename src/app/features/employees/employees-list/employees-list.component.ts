@@ -22,7 +22,7 @@ export class EmployeesListComponent implements OnInit {
     });
   }
 
-  deleteEmployee(id: number): void {
+  deleteEmployee(id: string): void {
     this.employeeService.deleteEmployee(id).subscribe(() => {
       this.loadEmployees();
     });
