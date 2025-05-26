@@ -99,5 +99,8 @@
       }
     }
   },
-  "defaultProject": "work-hour-reports-client"
+  "defaultProject": "work-hour-reports-client",
+  "cli": {
+    "analytics": "f57b7c8f-a1ee-4e5d-8b25-8f926969310c"
+  }
 }
