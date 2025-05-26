@@ -21,12 +21,22 @@ export class LoginComponent {
       password: this.password
     }).subscribe({
       next: (res) => {
+        console.log('login response:', res); // הוסיפי שורה זו
         localStorage.setItem('token', res.token);
-        localStorage.setItem('isAdmin', res.isAdmin); // לצורך הרשאות
+        localStorage.setItem(
+          'isAdmin',
+          (
+            res.isAdmin === true ||
+            res.isAdmin === 'true' ||
+            res.isAdmin === 1 ||
+            res.isAdmin === '1' ||
+            res.isAdmin === 'True'
+          ) ? 'true' : 'false'
+        );
         this.router.navigate(['/home']);
       },
       error: () => {
-        this.error = 'שם משתמש או ססימה שגויים';
+        this.error = 'שם משתמש או סיסמה שגויים';
       }
     });
   }
