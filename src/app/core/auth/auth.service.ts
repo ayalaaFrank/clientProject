@@ -47,4 +47,8 @@ export class AuthService {
   isAdmin(): boolean {
     return localStorage.getItem('isAdmin') === 'true';
   }
+
+  getUserInfo(): Observable<any> {
+    return this.http.get('https://localhost:7132/api/Auth/userinfo');
+  }
 }

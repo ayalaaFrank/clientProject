@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './features/login/login.component';
@@ -13,6 +13,7 @@ import { CourseDetailComponent } from './features/courses/course-detail/course-d
 import { ReportsListComponent } from './features/reports/reports-list/reports-list.component';
 import { PermissionPipe } from './shared/pipes/permission.pipe';
 import { HomeComponent } from './features/home/home.component';
+import { TokenInterceptor } from './core/auth/token.interceptor';
 
 
 @NgModule({
@@ -35,7 +36,9 @@ import { HomeComponent } from './features/home/home.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
