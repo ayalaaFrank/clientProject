@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const environment = {\n  production: false,\n  apiUrl: 'https://localhost:7132/api',\n  authTokenKey: 'auth_token',\n  userPermissions: {\n    canManageEmployees: true,\n    canManageCourses: true,\n    canViewReports: true\n  }\n};","map":null,"metadata":{},"sourceType":"module"}

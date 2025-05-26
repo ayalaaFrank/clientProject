@@ -9,6 +9,7 @@ import { Router } from '@angular/router'; // הוסיפי ייבוא זה
       <a routerLink="/home" *ngIf="auth.isLoggedIn()">בית</a>
       <a routerLink="/employees" *ngIf="auth.isLoggedIn()">עובדים</a>
       <a routerLink="/courses" *ngIf="auth.isLoggedIn()">קורסים</a>
+      <a routerLink="/reports" *ngIf="auth.isLoggedIn()">דוחות</a>
       <a (click)="logout()" *ngIf="auth.isLoggedIn()">התנתק</a>
       <!-- <a routerLink="/login" *ngIf="!auth.isLoggedIn()">התחבר</a> -->
     </nav>

@@ -14,6 +14,7 @@ import { ReportsListComponent } from './features/reports/reports-list/reports-li
 import { PermissionPipe } from './shared/pipes/permission.pipe';
 import { HomeComponent } from './features/home/home.component';
 import { TokenInterceptor } from './core/auth/token.interceptor';
+import { ReportsComponent } from './features/reports/reports.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { TokenInterceptor } from './core/auth/token.interceptor';
     ReportsListComponent,
     PermissionPipe,
     HomeComponent,
+    ReportsComponent,
 
   ],
   imports: [

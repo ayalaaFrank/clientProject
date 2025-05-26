@@ -8,6 +8,7 @@ import { CourseDetailComponent } from './features/courses/course-detail/course-d
 import { ReportsListComponent } from './features/reports/reports-list/reports-list.component';
 import { LoginComponent } from './features/login/login.component';
 import { HomeComponent } from './features/home/home.component';
+import { ReportsComponent } from './features/reports/reports.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -15,8 +16,8 @@ const routes: Routes = [
   { path: 'employees/add', component: EmployeeDetailComponent, canActivate: [AuthGuard] },
   { path: 'employees/:id', component: EmployeeDetailComponent, canActivate: [AuthGuard] },
   { path: 'courses', component: CoursesListComponent, canActivate: [AuthGuard] },
+   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
   { path: 'courses/:id', component: CourseDetailComponent, canActivate: [AuthGuard] },
-  { path: 'reports', component: ReportsListComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
 
 ];
