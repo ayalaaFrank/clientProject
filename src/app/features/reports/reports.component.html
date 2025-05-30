@@ -1,0 +1,120 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+<div class="container">
+
+  <!-- כותרת -->
+  <h2>שליפת דוחות עבודה</h2>
+
+  <!-- כפתורי בחירה -->
+  <div class="btn-group mb-4" role="group" aria-label="בחירת מצב דוחות">
+    <button
+      type="button"
+      class="btn btn-primary"
+      [class.active]="currentMode === 'month'"
+      (click)="selectMode('month')"
+    >
+      דוחות לפי חודש
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary"
+      [class.active]="currentMode === 'course'"
+      (click)="selectMode('course')"
+    >
+      דוחות לפי קורס
+    </button>
+    <button
+      type="button"
+      class="btn btn-info text-white"
+      [class.active]="currentMode === 'employee'"
+      (click)="selectMode('employee')"
+    >
+      דוחות לפי עובד
+    </button>
+  </div>
+
+  <!-- שדות קלט דינאמיים -->
+  <div *ngIf="currentMode === 'month'" class="mb-3">
+    <label for="monthInput" class="form-label">בחר חודש:</label>
+    <input
+      type="number"
+      id="monthInput"
+      [(ngModel)]="selectedMonth"
+      min="1"
+      max="12"
+      class="form-control"
+      placeholder="1-12"
+    />
+    <button class="btn btn-success mt-2" (click)="getReportsByMonth()">שלוף דוחות</button>
+  </div>
+
+  <div *ngIf="currentMode === 'course'" class="mb-3">
+    <label for="courseInput" class="form-label">הכנס קוד קורס:</label>
+    <input
+      type="text"
+      id="courseInput"
+      [(ngModel)]="selectedCourseId"
+      class="form-control"
+      placeholder="לדוגמה: CS101"
+    />
+    <button class="btn btn-success mt-2" (click)="getReportsByCourse()">שלוף דוחות</button>
+  </div>
+
+  <div *ngIf="currentMode === 'employee'" class="mb-3">
+    <label for="employeeInput" class="form-label">הכנס תעודת זהות עובד:</label>
+    <input
+      type="text"
+      id="employeeInput"
+      [(ngModel)]="selectedEmployeeId"
+      class="form-control"
+      placeholder="לדוגמה: 123456789"
+    />
+    <button class="btn btn-success mt-2" (click)="getReportsByEmployee()">שלוף דוחות</button>
+  </div>
+
+  <!-- שגיאה -->
+  <div *ngIf="error" class="text-danger fw-bold text-center mt-3">
+    {{ error }}
+  </div>
+
+  <!-- טוען -->
+  <div *ngIf="loading" class="spinner-border text-primary mt-3" role="status">
+    <span class="visually-hidden">טוען...</span>
+  </div>
+
+  <!-- טבלה להצגת הדוחות -->
+  <table *ngIf="!loading && reports.length > 0" class="table table-striped table-bordered mt-4">
+    <thead class="table-primary">
+      <tr>
+        <th>קוד עובד</th>
+        <th>קוד קורס</th>
+        <th>חודש</th>
+        <th>שנה</th>
+        <th>שעות עבודה</th>
+        <th>שכר לשעה</th>
+        <th>מס' נסיעות</th>
+        <th>תעריף נסיעה</th>
+        <th>סה"כ לתשלום</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let report of reports">
+        <td data-label="קוד עובד">{{ report.employeeCode }}</td>
+        <td data-label="קוד קורס">{{ report.courseCode }}</td>
+        <td data-label="חודש">{{ report.month }}</td>
+        <td data-label="שנה">{{ report.year }}</td>
+        <td data-label="שעות עבודה">{{ report.workHours }}</td>
+        <td data-label="שכר לשעה">{{ report.hourlyRate }}</td>
+        <td data-label="מס' נסיעות">{{ report.travelCount }}</td>
+        <td data-label="תעריף נסיעה">{{ report.travelRate }}</td>
+        <td data-label="סכ לתשלום">{{ report.totalPayment }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- הודעה אם אין דוחות -->
+  <div *ngIf="!loading && reports.length === 0 && currentMode" class="text-muted mt-4 text-center">
+    לא נמצאו דוחות להצגה.
+  </div>
+
+</div>
